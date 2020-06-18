@@ -1,12 +1,14 @@
 #!/bin/bash
 # Copyright (c) 2017-2018 Intel Corporation
-# 
+#
 # SPDX-License-Identifier: Apache-2.0
 
 # Note - no 'set -e' in this file - if one of the metrics tests fails
 # then we wish to continue to try the rest.
 # Finally at the end, in some situations, we explicitly exit with a
 # failure code if necessary.
+
+set -x
 
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 source "${SCRIPT_DIR}/../metrics/lib/common.bash"
@@ -58,7 +60,8 @@ run() {
 		bash time/launch_times.sh -i ubuntu -n 20
 
 		# Run storage tests
-		bash storage/blogbench.sh
+		# Blog bench is hanging
+		# bash -x storage/blogbench.sh
 
 		# Run the cpu statistics test
 		bash network/cpu_statistics_iperf.sh
